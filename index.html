@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Calc V1.0</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script defer type="module" src="./script/cart.js" ></script>
+    <script defer type="module" src="./script/script.js" ></script>
+</head>
+<body>
+<div class="calc_place" id="calc_place">
+    <div class="step_1" id="step_1">
+        <div class="punct_text">1. Выберите Ваш регион</div>
+        <div class="region" id="minsk">Минск</div>
+        <div class="region" id="minskObl">Минская Обл.</div>
+        <div class="region" id="brest">Бресткая Обл.</div>
+        <div class="region" id="grodno">Гродненская Обл.</div>
+        <div class="region" id="gomel">Гомельская Обл.</div>
+        <div class="region" id="mogilev">Могилевская Обл.</div>
+    </div>
+    <div class="step_2 disable" id="step_2" >
+        <label for="select_time"><span class="punct_text">2. Выбирите период рассрочк</span></label>
+        <select name="select_time" id="select_time" disabled>
+            <option value="select" selected>Выбирите количество месяцев</option>
+            <option value="3">3 месяца</option>
+            <option value="4">4 месяца</option>
+            <option value="6">6 месяцев</option>
+            <option value="7">7 месяцев</option>
+            <option value="8">8 месяцев</option>
+            <option value="9">9 месяцев</option>
+            <option value="10">10 месяцев</option>
+            <option value="11">11 месяцев</option>
+            <option value="12">12 месяцев</option>
+            <option value="more">Более 12 месяцев</option>
+        </select>
+    </div>
+    <div class="step_3 disable" id="step_3">
+        <div class="cart" id="halvaCart" style="display: none">
+            <h2>Халва</h2>
+            <span>На 3 месяца без переплат</span>
+            <button class="select_btn" id="halva" disabled>Выбрать способ оплаты</button>
+        </div>
+        <div class="cart" id="magnitCart" style="display: none">
+            <h2>Магнит</h2>
+            <span>На 3 месяца без переплат</span>
+            <button class="select_btn" id="magnit" disabled>Выбрать способ оплаты</button>
+        </div>
+        <div class="cart" id="kpCart" style="display: none">
+            <h2>Карта покупок</h2>
+            <span>На 3 месяца без переплат</span>
+            <button class="select_btn" id="kp" disabled>Выбрать способ оплаты</button>
+        </div>
+        <div class="cart" id="funCart" style="display: none">
+            <h2>карта FUN</h2>
+            <span>На 4 месяца без переплат</span>
+            <button class="select_btn" id="fun" disabled>Выбрать способ оплаты</button>
+        </div>
+        <div class="cart" id="tartoseCart" style="display: none">
+            <h2>Черепаха</h2>
+            <span>На 4 месяца без переплат</span>
+            <button class="select_btn" id="tartose" disabled>Выбрать способ оплаты</button>
+        </div>
+        <div class="cart" id="bel_bank" style="display: none">
+            <h2>Беларусь банк</h2>
+            <span>от 6 до 12 месяцев без переплат</span>
+            <button class="select_btn" id="bel_bank_cart" disabled>Выбрать способ оплаты</button>
+        </div>
+        <div class="cart" id="bel_bank_cart_plus" style="display: none">
+            <h2>Беларусь банк</h2>
+            <span>от 12 до 32 месяцев переплат</span>
+            <button class="select_btn" id="bel_bank_plus" disabled>Выбрать способ оплаты</button>
+        </div>
+        <div class="normal_text" id="cart_here">3. Здесь отобразятся доступные варинаты рассрочки</div>
+    </div>
+    <div class="step_4 disable" id="step_4">
+        <select name="rassrochka" id="select_time_plus" class="rassrochka">
+            <option value="13">13 месяцев</option>
+            <option value="14">14 месяцев</option>
+            <option value="15">15 месяцев</option>
+            <option value="16">16 месяцев</option>
+            <option value="17">17 месяцев</option>
+            <option value="18">18 месяцев</option>
+            <option value="19">19 месяцев</option>
+            <option value="20">20 месяцев</option>
+            <option value="21">21 месяцев</option>
+            <option value="22">22 месяцев</option>
+            <option value="23">23 месяцев</option>
+            <option value="24">24 месяцев</option>
+            <option value="25">25 месяцев</option>
+            <option value="26">26 месяцев</option>
+            <option value="27">27 месяцев</option>
+            <option value="28">28 месяцев</option>
+            <option value="29">29 месяцев</option>
+            <option value="30">30 месяцев</option>
+            <option value="31">31 месяцев</option>
+            <option value="32">32 месяцев</option>
+        </select>
+        <label for="select_sum">
+            <span class="punct_text">Введите желаемую сумму:</span>
+        </label>
+        <input class="test" name="suma" type="number" min="50" max="10000" id="select_sum">
+        <div id="result" class="result_sum">
+            <span class="total">Итого: <span id="total">тест</span></span>
+            <span id="total_m_all">
+                <span id="total_m">тест3</span>
+                 в месяц
+            </span>
+        </div>
+        <span class="select_sum_alert" id="select_sum_alert" style="display: none">Допустимая сумма от 50 до 10 000 рублей</span>
+    </div>
+    <button id="all_ready">press</button>
+</div>
+</body>
+</html>
