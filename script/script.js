@@ -239,8 +239,3 @@ import {CartObj} from "./cart.js";
             selectedInfo.getInfo();
             selectedInfo.fetchJSON();
         }
-
-
-
-
-
