@@ -32,7 +32,12 @@ import {CartObj} from "./cart.js";
             carts[i].addEventListener('click', selectCart)
         }
 
-        selectTime.addEventListener("input", testTime); // каждую секунду проверят выбран ли пункт у второго шага
+        selectTime.addEventListener("input", () => {
+                nextStep3(selectTime.value); // передаёт выбранное значение в виде строки в функцию для работы третьего шага
+                sborInfo[1] = selectTime.value;
+                sborInfo.splice(2, 1);
+                console.log(sborInfo);
+        }); // каждую секунду проверят выбран ли пункт у второго шага
 
         function nextStep2() { // открыывет второй пункт ввода
             selectTime.attributes.removeNamedItem('disabled'); // открываем селект убрав отребут дизейбл
@@ -83,17 +88,17 @@ import {CartObj} from "./cart.js";
             mathSumNullAndDisable();
             step4.classList.remove('step_4_plus');
         }
-
-        function testTime() { // функция для проверки выбран ли пункт в селекте
-            // if (selectTime.value !== 'select'){ // если выбрана не заплатка, то она останавливается и ...
-                nextStep3(selectTime.value); // передаёт выбранное значение в виде строки в функцию для работы третьего шага
-                sborInfo[1] = selectTime.value;
-                console.log(sborInfo);
-            }
-            // else { // иначе она и дальше вызывает саму себя
-            //     setTimeout(testTime, 1000); // самовызов происходит каждык 0.8 секундды
-            // }
-        // }
+        //
+        // function testTime() { // функция для проверки выбран ли пункт в селекте
+        //     // if (selectTime.value !== 'select'){ // если выбрана не заплатка, то она останавливается и ...
+        //         nextStep3(selectTime.value); // передаёт выбранное значение в виде строки в функцию для работы третьего шага
+        //         sborInfo[1] = selectTime.value;
+        //         console.log(sborInfo);
+        //     }
+        //     // else { // иначе она и дальше вызывает саму себя
+        //     //     setTimeout(testTime, 1000); // самовызов происходит каждык 0.8 секундды
+        //     // }
+        // // }
 
         function nextStep3(testTime1) { // функция отвественная  за вывод сбособов оплаты подходящих под критерии
             mathSumNullAndDisable(); // закрываем выбор суммы и сбрасываем его
@@ -160,21 +165,25 @@ import {CartObj} from "./cart.js";
 
 
         selectSum.addEventListener("input", mathSum); // при изменении в веденую сумму отрыбатывает (проверить)
+        selectTest.addEventListener("input", mathSum);
 
         function mathSum() { // производит вычисления
-            if (selectTime.value == "more") { // если выбранно больше 12 месяцев, то начинает проверки
-                let start = 13, // стартовое 13 месяцев, затем это будет использоваться для вычисдения месяцев
-                    max = 0; // просто 0, который потом будет принимать значения
-                parseInt(start); // приводим старт к числу
-                start=Math.abs(start-parseInt(selectTest.value)); // берём модуль разницы месяцев
-                start*=0.7; // умножаем на кол-во шагов (месяцев), при шаге в 0.7
-                start+=1.1; // добавляем 1.1 процент стартовый
-                start/=100; // ??
-                max = parseInt(selectSum.value); // парсим значение из инпута
-                max*=start; // умножаем на процент
-                totalSumM.innerText = (((parseInt(selectSum.value)+max) / (parseInt(selectTest.value)-1)).toFixed(2))+"руб."; // складываем сумму и процент, делим на кол=во месяцевв минус первый взнос
-                totalSum.innerText = ((parseInt(selectSum.value)+max).toFixed(2))+"руб."; // общая сумма с перевлатой
-                selectSumCheck(selectSum.value); // проверка валидности введёных чисел
+            if (selectTime.value == "more" ) { // если выбранно больше 12 месяцев, то начинает проверки
+                if (selectSum.value !== '') {
+                    sborInfo[1] = selectTest.value;
+                    let start = +13, // стартовое 13 месяцев, затем это будет использоваться для вычисдения месяцев
+                        max = 0; // просто 0, который потом будет принимать значения
+                    // parseInt(start); // приводим старт к числу
+                    start=Math.abs(start-parseInt(selectTest.value)); // берём модуль разницы месяцев
+                    start*=0.7; // умножаем на кол-во шагов (месяцев), при шаге в 0.7
+                    start+=1.1; // добавляем 1.1 процент стартовый
+                    start/=100; // ??
+                    max = parseInt(selectSum.value); // парсим значение из инпута
+                    max*=start; // умножаем на процент
+                    totalSumM.innerText = (((parseInt(selectSum.value)+max) / (parseInt(selectTest.value)-1)).toFixed(2))+"руб."; // складываем сумму и процент, делим на кол=во месяцевв минус первый взнос
+                    totalSum.innerText = ((parseInt(selectSum.value)+max).toFixed(2))+"руб."; // общая сумма с перевлатой
+                    selectSumCheck(selectSum.value); // проверка валидности введёных чисел
+                    }
             } else {
                 totalSum.innerText = selectSum.value; // если считать проценты не нужно, то просто выводим
                 totalSumM.innerText = (selectSum.value / parseInt(selectTime.value)).toFixed(2); // делим на кол-во месяцев
@@ -224,7 +233,7 @@ import {CartObj} from "./cart.js";
 
 
         function allReady() {
-            sborInfo.push(selectSum.value);
+            sborInfo[3] = selectSum.value;
             console.log(sborInfo);
             let selectedInfo = new CartObj(...[sborInfo]);
             selectedInfo.getInfo();
